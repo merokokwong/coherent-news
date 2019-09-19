@@ -1,0 +1,95 @@
+// color variable
+
+// Header
+  $header-background: #3c3b63;
+  $header-text: #ffffff;
+  $header-shadow: rgba(0,0,0,0.2);
+
+// Search
+  $search-background: rgba(255, 255, 255, 0.15);
+  $search-icon: #ffffff;
+  $search-placeholder: rgba(255, 255, 255, 0.42);
+  $search-text: #ffffff;
+
+// Card
+  $card-avatar-backgrounnd: #bdbdbd;
+  $card-avatar-text: #fafafa;
+  $card-text: rgba(0, 0, 0, 0.87);
+  $card-date: rgba(0, 0, 0, 0.54);
+  $card-title: rgba(0, 0, 0, 0.87);
+  $card-description: rgba(0, 0, 0, 0.54);
+  $card-shadow: rgba(0,0,0,0.2);
+
+
+body {
+  font-family: Helvetica;
+}
+
+.news-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+//card
+.card {
+  display: inline-block;
+  box-shadow: 0 1px 2px 0 $card-shadow;
+  margin: 20px;
+  position: relative;
+  margin-bottom: 50px;
+  transition: all .2s ease-in-out;
+  min-width: 350px;
+
+  &:hover {
+    margin-bottom: 54px;
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  color: $card-text;
+  line-height: 1.4;
+  padding: 20px 20px 10px 20px;
+
+  .publish-date {
+    color: $card-date;
+  }
+}
+
+[data-letters]:before {
+  content: attr(data-letters);
+  display: inline-block;
+  font-size: 1em;
+  width: 2.5em;
+  height: 2.5em;
+  line-height: 2.5em;
+  text-align: center;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 1em;
+  background: $card-avatar-backgrounnd;
+  color: $card-avatar-text;
+}
+
+.card-body {
+  width: 350px;
+
+  img {
+    width: 100%;
+  }
+
+  h2 {
+    font-weight: 400;
+    margin-bottom: 0;
+  }
+
+  .card-body-text {
+    padding: 0 20px;
+  }
+
+  .body-description {
+    color: $card-description;
+  }
+}
