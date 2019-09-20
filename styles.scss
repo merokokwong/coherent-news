@@ -1,34 +1,79 @@
+// @mixin
+@mixin for-phone-only {
+  @media (max-width: 599px) {
+    @content;
+  }
+}
+
+@mixin for-tablet-only {
+  @media (min-width: 768px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
 // color variable
 
 // Header
-  $header-background: #3c3b63;
-  $header-text: #ffffff;
-  $header-shadow: rgba(0,0,0,0.2);
+$header-background: #3c3b63;
+$header-text: #ffffff;
+$header-shadow: rgba(0, 0, 0, 0.2);
 
 // Search
-  $search-background: rgba(255, 255, 255, 0.15);
-  $search-icon: #ffffff;
-  $search-placeholder: rgba(255, 255, 255, 0.42);
-  $search-text: #ffffff;
+$search-background: rgba(255, 255, 255, 0.15);
+$search-icon: #ffffff;
+$search-placeholder: rgba(255, 255, 255, 0.42);
+$search-text: #ffffff;
 
 // Card
-  $card-avatar-backgrounnd: #bdbdbd;
-  $card-avatar-text: #fafafa;
-  $card-text: rgba(0, 0, 0, 0.87);
-  $card-date: rgba(0, 0, 0, 0.54);
-  $card-title: rgba(0, 0, 0, 0.87);
-  $card-description: rgba(0, 0, 0, 0.54);
-  $card-shadow: rgba(0,0,0,0.2);
-
+$card-avatar-backgrounnd: #bdbdbd;
+$card-avatar-text: #fafafa;
+$card-text: rgba(0, 0, 0, 0.87);
+$card-date: rgba(0, 0, 0, 0.54);
+$card-title: rgba(0, 0, 0, 0.87);
+$card-description: rgba(0, 0, 0, 0.54);
+$card-shadow: rgba(0, 0, 0, 0.2);
 
 body {
   font-family: Helvetica;
+  margin: 0;
+}
+
+.search-header {
+  background-color: $header-background;
+  color: $header-text;
+  box-shadow: 0 1px 2px 0 $header-shadow;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    margin-left: 20px;
+    font-weight: 300;
+  }
+
+  input {
+    margin-right: 20px;
+  }
 }
 
 .news-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  padding-top: 100px;
+}
+
+.infinite-scroll-component {
+  display: flex;
+  flex-wrap: wrap;
+  > p,
+  h4 {
+    flex: 100%;
+    text-align: center;
+  }
 }
 
 //card
@@ -38,11 +83,22 @@ body {
   margin: 20px;
   position: relative;
   margin-bottom: 50px;
-  transition: all .2s ease-in-out;
-  min-width: 350px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  width: 30%;
 
   &:hover {
     margin-bottom: 54px;
+  }
+
+  @include for-tablet-only {
+    width: 30%;
+    flex-grow: 1;
+  }
+
+  @include for-phone-only {
+    width: 100%;
+    margin: 5px;
   }
 }
 
@@ -74,7 +130,7 @@ body {
 }
 
 .card-body {
-  width: 350px;
+  position: relative;
 
   img {
     width: 100%;

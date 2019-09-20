@@ -3,7 +3,14 @@ import { connect } from "react-redux";
 import { startClock, serverRenderClock, fetchArticleDetails } from "../store";
 import Examples from "../components/examples";
 import NewsList from "../components/news-list";
+import SearchHeader from "../components/search-header";
 import "../styles.scss";
+
+const mapStateToProps = state => {
+  return {
+    pageIndex: state.pageIndex
+  };
+};
 
 class Index extends React.Component {
   static getInitialProps({ reduxStore, req }) {
@@ -13,12 +20,16 @@ class Index extends React.Component {
     reduxStore.dispatch(serverRenderClock(isServer));
     return {};
   }
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
   componentDidMount() {
     // DISPATCH ACTIONS HERE FROM `mapDispatchToProps`
     // TO TICK THE CLOCK
     this.timer = setInterval(() => this.props.startClock(), 1000);
-    this.props.fetchArticleDetails();
+    this.props.fetchArticleDetails(this.props.pageIndex);
   }
 
   componentWillUnmount() {
@@ -28,6 +39,7 @@ class Index extends React.Component {
   render() {
     return (
       <div>
+        <SearchHeader />
         <NewsList />
       </div>
     );
@@ -35,6 +47,6 @@ class Index extends React.Component {
 }
 const mapDispatchToProps = { startClock, fetchArticleDetails };
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Index);

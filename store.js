@@ -2,6 +2,7 @@ import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 
+// put the key away!!
 const NewsAPI = require("newsapi");
 const newsapi = new NewsAPI("10352f83dbb844de81f0d52c6a6229bc");
 
@@ -9,7 +10,8 @@ const exampleInitialState = {
   lastUpdate: 0,
   light: false,
   count: 0,
-  newsList: []
+  newsList: [],
+  pageIndex: 1
 };
 
 export const actionTypes = {
@@ -17,7 +19,8 @@ export const actionTypes = {
   INCREMENT: "INCREMENT",
   DECREMENT: "DECREMENT",
   RESET: "RESET",
-  GET_NEWS_LIST: "GET_NEWS_LIST"
+  GET_NEWS_LIST: "GET_NEWS_LIST",
+  INCREMENT_PAGE_INDEX: "INCREMENT_PAGE_INDEX"
 };
 
 // REDUCERS
@@ -42,7 +45,11 @@ export const reducer = (state = exampleInitialState, action) => {
       });
     case actionTypes.GET_NEWS_LIST:
       return Object.assign({}, state, {
-        newsList: action.newsList
+        newsList: state.newsList.concat(action.newsList)
+      });
+    case actionTypes.INCREMENT_PAGE_INDEX:
+      return Object.assign({}, state, {
+        pageIndex: state.pageIndex + 1
       });
     default:
       return state;
@@ -73,14 +80,37 @@ export const getNewsList = newsList => {
   return { type: actionTypes.GET_NEWS_LIST, newsList: newsList };
 };
 
-export const fetchArticleDetails = () => {
+export const incrementPageIndex = () => {
+  return { type: actionTypes.INCREMENT_PAGE_INDEX };
+};
+
+export const fetchArticleDetails = pageIndex => {
   return function(dispatch) {
     return newsapi.v2
       .everything({
         sources: "the-washington-post, the-new-york-times",
-        pageSize: 10
+        pageSize: 10,
+        // page is index for infinite-scroll
+        page: pageIndex,
+        sortBy: "publishedAt"
       })
       .then(response => {
+        dispatch(getNewsList(response.articles));
+      });
+  };
+};
+
+export const searchKeyword = q => {
+  return function(dispatch) {
+    return newsapi.v2
+      .everything({
+        sources: "the-washington-post, the-new-york-times",
+        qInTitle: q,
+        pageSize: 100,
+        sortBy: "publishedAt"
+      })
+      .then(response => {
+        //TODO: another action
         dispatch(getNewsList(response.articles));
       });
   };
