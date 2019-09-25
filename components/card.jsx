@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
+import Head from "next/head";
 
 class Card extends React.Component {
   constructor(props) {
@@ -17,12 +18,20 @@ class Card extends React.Component {
   render() {
     return (
       <div className="card">
+        <Head>
+          <meta property="og:title" content={this.props.news.title} />
+          <meta
+            property="og:description"
+            content={this.props.news.description}
+          />
+          <meta property="og:type" content="article" />
+          <meta property="og:image" content={this.props.news.urlToImage} />
+        </Head>
         <a
           href={this.props.news.url}
           target="_blank"
           title={this.props.news.title}
         >
-          <title>{this.props.news.title}</title>
           <div className="card-header">
             <div data-letters={this.props.news.source.name.charAt(0)}></div>
             <div>

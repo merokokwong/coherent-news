@@ -27,7 +27,7 @@ class SearchHeader extends React.Component {
       <div className="search-header">
         <h2>US News</h2>
         <span className="search-input">
-          <FontAwesomeIcon icon="search" />
+          <FontAwesomeIcon icon="search" size="xs" />
           <input
             type="text"
             placeholder="Search"

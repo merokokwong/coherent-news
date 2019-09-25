@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Card from "./card";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchArticleDetails, incrementPageIndex } from "../store";
+import Head from "next/head";
 
 const mapStateToProps = state => {
   return {
@@ -46,6 +47,14 @@ class NewsList extends React.Component {
   render() {
     return (
       <div className="news-container">
+        <Head>
+          <title>US News</title>
+          <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            href="/static/favicon.ico"
+          />
+        </Head>
         {this.props.searchKeyword !== "" ? (
           this.searchResult()
         ) : (
