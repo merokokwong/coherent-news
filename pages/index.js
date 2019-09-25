@@ -33,10 +33,6 @@ class Index extends React.Component {
     // this.props.fetchArticleDetails(this.props.pageIndex);
   }
 
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
-
   render() {
     return (
       <div>

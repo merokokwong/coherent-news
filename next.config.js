@@ -1,24 +1,25 @@
 // next.config.js
 const withSass = require("@zeit/next-sass");
+const compose = require("next-compose");
 const withOffline = require("next-offline");
 
 const nextConfig = {
-  target: "serverless",
+  generateInDevMode: true,
   workboxOpts: {
-    swDest: "static/service-worker.js",
     runtimeCaching: [
       {
-        urlPattern: /^https?.*/,
-        handler: "networkFirst",
+        urlPattern: /.png$/,
+        handler: "CacheFirst"
+      },
+      {
+        urlPattern: /api/,
+        handler: "NetworkFirst",
         options: {
-          cacheName: "https-calls",
-          networkTimeoutSeconds: 15,
-          expiration: {
-            maxEntries: 150,
-            maxAgeSeconds: 30 * 24 * 60 * 60 // 1 month
-          },
           cacheableResponse: {
-            statuses: [0, 200]
+            statuses: [0, 200],
+            headers: {
+              "x-test": "true"
+            }
           }
         }
       }
@@ -26,7 +27,4 @@ const nextConfig = {
   }
 };
 
-module.exports = withSass({
-  /* config options here */
-});
-module.exports = withOffline(nextConfig);
+module.exports = compose([[withOffline], [withSass]]);
