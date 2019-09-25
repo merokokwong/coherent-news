@@ -55,8 +55,29 @@ body {
     font-weight: 300;
   }
 
-  input {
+  .search-input {
     margin-right: 20px;
+    position: relative;
+
+    .fa-search {
+      position: absolute;
+      color: $search-icon;
+      top: 9px;
+      left: 8px;
+    }
+
+    input {
+      background-color: $search-background;
+      color: $search-text;
+      padding: 10px 10px 10px 30px;
+      border-radius: 15px;
+      border: 0px;
+      outline: none;
+
+      &::placeholder {
+        color: $search-placeholder;
+      }
+    }
   }
 }
 
@@ -66,6 +87,12 @@ body {
   padding-top: 100px;
 }
 
+.search-loading {
+  width: 100%;
+  text-align: center;
+}
+
+//InfiniteScroll style
 .infinite-scroll-component {
   display: flex;
   flex-wrap: wrap;
@@ -73,6 +100,7 @@ body {
   h4 {
     flex: 100%;
     text-align: center;
+    font-weight: 100;
   }
 }
 
@@ -91,6 +119,11 @@ body {
     margin-bottom: 54px;
   }
 
+  a {
+    text-decoration: none;
+    color: $card-text;
+  }
+
   @include for-tablet-only {
     width: 30%;
     flex-grow: 1;
@@ -105,7 +138,6 @@ body {
 .card-header {
   display: flex;
   align-items: center;
-  color: $card-text;
   line-height: 1.4;
   padding: 20px 20px 10px 20px;
 

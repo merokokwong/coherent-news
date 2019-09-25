@@ -8,47 +8,47 @@ class Card extends React.Component {
     this.state = {};
 
     this.formatPublishDate = this.formatPublishDate.bind(this);
-    this.goToUrl = this.goToUrl.bind(this);
   }
 
   formatPublishDate(d) {
     return moment(d).format("YYYY-MM-DD kk:mm");
   }
 
-  goToUrl(url) {
-    window.open(url);
-  }
-
   render() {
     return (
-      <div
-        className="card"
-        onClick={() => {
-          this.goToUrl(this.props.news.url);
-        }}
-      >
-        <div className="card-header">
-          <div data-letters={this.props.news.source.name.charAt(0)}></div>
-          <div>
-            <div className="source">{this.props.news.source.name}</div>
-            <div className="publish-date">
-              {this.formatPublishDate(this.props.news.publishedAt)}
+      <div className="card">
+        <a
+          href={this.props.news.url}
+          target="_blank"
+          title={this.props.news.title}
+        >
+          <title>{this.props.news.title}</title>
+          <div className="card-header">
+            <div data-letters={this.props.news.source.name.charAt(0)}></div>
+            <div>
+              <div className="source">{this.props.news.source.name}</div>
+              <div className="publish-date">
+                {this.formatPublishDate(this.props.news.publishedAt)}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="card-body">
-          {this.props.news.urlToImage !== "" &&
-          this.props.news.urlToImage !== null ? (
-            <img src={this.props.news.urlToImage} alt={this.props.news.title} />
-          ) : (
-            <span className="img-not-found"></span>
-          )}
-          <div className="card-body-text">
-            <h2>{this.props.news.title}</h2>
-            <p className="body-description">{this.props.news.description}</p>
+          <div className="card-body">
+            {this.props.news.urlToImage !== "" &&
+            this.props.news.urlToImage !== null ? (
+              <img
+                src={this.props.news.urlToImage}
+                alt={this.props.news.title}
+              />
+            ) : (
+              <span className="img-not-found"></span>
+            )}
+            <div className="card-body-text">
+              <h2>{this.props.news.title}</h2>
+              <p className="body-description">{this.props.news.description}</p>
+            </div>
           </div>
-        </div>
+        </a>
       </div>
     );
   }

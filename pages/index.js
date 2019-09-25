@@ -1,10 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { startClock, serverRenderClock, fetchArticleDetails } from "../store";
-import Examples from "../components/examples";
+import { fetchArticleDetails } from "../store";
 import NewsList from "../components/news-list";
 import SearchHeader from "../components/search-header";
 import "../styles.scss";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faEnvelope, faKey, faSearch } from "@fortawesome/free-solid-svg-icons";
+library.add(faEnvelope, faKey, faSearch);
 
 const mapStateToProps = state => {
   return {
@@ -13,13 +15,6 @@ const mapStateToProps = state => {
 };
 
 class Index extends React.Component {
-  static getInitialProps({ reduxStore, req }) {
-    const isServer = !!req;
-
-    // DISPATCH ACTIONS HERE ONLY WITH `reduxStore.dispatch`
-    reduxStore.dispatch(serverRenderClock(isServer));
-    return {};
-  }
   constructor(props) {
     super(props);
     this.state = {};
@@ -28,7 +23,6 @@ class Index extends React.Component {
   componentDidMount() {
     // DISPATCH ACTIONS HERE FROM `mapDispatchToProps`
     // TO TICK THE CLOCK
-    this.timer = setInterval(() => this.props.startClock(), 1000);
     this.props.fetchArticleDetails(this.props.pageIndex);
   }
 
@@ -45,7 +39,7 @@ class Index extends React.Component {
     );
   }
 }
-const mapDispatchToProps = { startClock, fetchArticleDetails };
+const mapDispatchToProps = { fetchArticleDetails };
 export default connect(
   mapStateToProps,
   mapDispatchToProps

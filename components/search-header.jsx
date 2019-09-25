@@ -1,6 +1,13 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
-import { searchKeyword } from "../store";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { searchKeywordChange, searchArticle } from "../store";
+
+const mapStateToProps = state => {
+  return {
+    searchKeyword: state.searchKeyword
+  };
+};
 
 class SearchHeader extends React.Component {
   constructor(props) {
@@ -11,28 +18,29 @@ class SearchHeader extends React.Component {
   }
 
   searchArticlebyKeyword(e) {
-    let keyWord = e.target.value;
-    this.props.searchKeyword(keyWord);
+    this.props.searchKeywordChange(e.target.value);
+    this.props.searchArticle(e.target.value);
   }
 
   render() {
     return (
       <div className="search-header">
         <h2>US News</h2>
-
-        <input
-          type="text"
-          placeholder="Search"
-          onChange={e => {
-            this.searchArticlebyKeyword(e);
-          }}
-        />
+        <span className="search-input">
+          <FontAwesomeIcon icon="search" />
+          <input
+            type="text"
+            placeholder="Search"
+            value={this.props.searchKeyword}
+            onChange={e => this.searchArticlebyKeyword(e)}
+          />
+        </span>
       </div>
     );
   }
 }
-const mapDispatchToProps = { searchKeyword };
+const mapDispatchToProps = { searchKeywordChange, searchArticle };
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SearchHeader);
