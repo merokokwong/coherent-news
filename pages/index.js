@@ -4,6 +4,7 @@ import { fetchArticleDetails } from "../store";
 import NewsList from "../components/news-list";
 import SearchHeader from "../components/search-header";
 import "../styles.scss";
+import { register, unregister } from "next-offline/runtime";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 library.add(faSearch);
@@ -31,6 +32,11 @@ class Index extends React.Component {
     // DISPATCH ACTIONS HERE FROM `mapDispatchToProps`
     // client side renndering not need, using getInitialProps to get data
     // this.props.fetchArticleDetails(this.props.pageIndex);
+    register();
+  }
+
+  componentWillUnmount() {
+    unregister();
   }
 
   render() {

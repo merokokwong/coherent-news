@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 import Head from "next/head";
+import Image from "./image";
 
 class Card extends React.Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class Card extends React.Component {
           <div className="card-body">
             {this.props.news.urlToImage !== "" &&
             this.props.news.urlToImage !== null ? (
-              <img
+              <Image
                 src={this.props.news.urlToImage}
                 alt={this.props.news.title}
               />

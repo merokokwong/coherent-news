@@ -54,6 +54,7 @@ class NewsList extends React.Component {
             type="image/x-icon"
             href="/static/favicon.ico"
           />
+          <link rel="manifest" href="/static/manifest.json" />
         </Head>
         {this.props.searchKeyword !== "" ? (
           this.searchResult()
